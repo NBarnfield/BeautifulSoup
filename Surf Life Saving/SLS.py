@@ -32,7 +32,7 @@ for link in span_contents:
 # Open file to write results to
 filename = "sls.csv"
 f = open(filename, 'w')
-headers = "branch_name, premises_phone, premises_fax, email, website, premises_address, premises_suburb, premises_state, premises_postcode, local_beach\n"
+headers = "branch_name, premises_phone, premises_fax, email, website, premises_address, premises_suburb, premises_state, local_beach, premises_postcode\n"
 f.write(headers)
 
 
