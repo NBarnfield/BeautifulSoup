@@ -32,7 +32,7 @@ for link in span_contents:
 # Open file to write results to
 filename = "sls.csv"
 f = open(filename, 'w')
-headers = "branch_name, premises_phone, premises_fax, email, website, premises_address, premises_suburb, premises_state, local_beach, premises_postcode\n"
+headers = "premises_name, address, suburb, state, post_code, phone, fax, email, website, branch, local_beach\n"
 f.write(headers)
 
 
@@ -42,19 +42,20 @@ for website in sls_websites:
     soup = BeautifulSoup(r.content, 'lxml')
 
     # Set variables
-    branch = soup.find('div', {'id': 'cd-parent'}).find('span', {'class': 'detail'}).text
+    premises_name = soup.find('div', {'id': 'cd-name'}).text
+    address = soup.find('div', {'id': 'cd-address'}).find('span', {'class': 'detail'}).text
+    suburb = soup.find('div', {'id': 'cd-suburb'}).find('span', {'class': 'detail'}).text
+    state = soup.find('div', {'id': 'cd-state'}).find('span', {'class': 'detail'}).text
+    post_code = soup.find('div', {'id': 'cd-postcode'}).find('span', {'class': 'detail'}).text
     phone = soup.find('div', {'id': 'cd-phone'}).find('span', {'class': 'detail'}).text
     fax = soup.find('div', {'id': 'cd-fax'}).find('span', {'class': 'detail'}).text
     email = soup.find('div', {'id': 'cd-email'}).find('span', {'class': 'detail'}).text
     website = soup.find('div', {'id': 'cd-website'}).find('span', {'class': 'detail'}).text
-    address = soup.find('div', {'id': 'cd-address'}).find('span', {'class': 'detail'}).text
-    suburb = soup.find('div', {'id': 'cd-suburb'}).find('span', {'class': 'detail'}).text
-    state = soup.find('div', {'id': 'cd-state'}).find('span', {'class': 'detail'}).text
+    branch = soup.find('div', {'id': 'cd-parent'}).find('span', {'class': 'detail'}).text
     local_beach = soup.find('div', {'id': 'cd-beach'}).find('span', {'class': 'detail'}).text
-    post_code = soup.find('div', {'id': 'cd-postcode'}).find('span', {'class': 'detail'}).text
 
     # Write variables to file
-    f.write(branch + ", " + phone + ", " + fax + ", " + email + ", " + website + ", " + address + ", " + suburb + ", " + state + ", " + local_beach + ", " + post_code + "\n")
+    f.write(premises_name + ", " + address + ", " + suburb + ", " + state + ", " + post_code + ", " + phone + ", " + fax + ", " + email + ", " + website + ", " + branch + ", " + local_beach + "\n")
 
     # Sleep to space out requests
     time.sleep(2)
